@@ -6,22 +6,6 @@ const dotenv = require('dotenv');
 const Task = require('./models/Task'); // Import the Task model
 const helmet = require('helmet');
 
-//vercel config
-
-const fs = require('fs');
-const path = require('path');
-
-app.get('/list-views', (req, res) => {
-  const viewsDir = path.join(__dirname, 'views');
-  fs.readdir(viewsDir, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: 'Cannot read views directory' });
-    }
-    res.json({ files });
-  });
-});
-
-
 // Load environment variables from .env file
 dotenv.config();
 
