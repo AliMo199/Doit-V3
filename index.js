@@ -17,12 +17,12 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-      defaultSrc: ["'self'"], // Default policy is to allow only from the same origin
+      defaultSrc: ["'self'"], // Default policy: allow resources from the same origin
       scriptSrc: ["'self'", "https://vercel.live"], // Allow scripts from vercel.live
       fontSrc: ["'self'", "https://fonts.gstatic.com"], // Allow fonts from Google Fonts
       styleSrc: ["'self'", "https://fonts.googleapis.com"], // Allow styles from Google Fonts
-      connectSrc: ["'self'", "https://vercel.live"], // If there are any WebSocket or XHR requests
-      imgSrc: ["'self'", "data:"], // Allow images from self and inline images (data URIs)
+      connectSrc: ["'self'", "https://vercel.live"], // Allow WebSocket or XHR connections from Vercel
+      imgSrc: ["'self'", "data:"], // Allow images from the same origin and inline images (data URIs)
       // Add more directives as needed
     },
   })
