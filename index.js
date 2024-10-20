@@ -4,12 +4,30 @@ const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv');
 const Task = require('./models/Task'); // Import the Task model
+const helmet = require('helmet');
 
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Configuring Content Security Policy (CSP) via helmet
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"], // Default policy is to allow only from the same origin
+      scriptSrc: ["'self'", "https://vercel.live"], // Allow scripts from vercel.live
+      fontSrc: ["'self'", "https://fonts.gstatic.com"], // Allow fonts from Google Fonts
+      styleSrc: ["'self'", "https://fonts.googleapis.com"], // Allow styles from Google Fonts
+      connectSrc: ["'self'", "https://vercel.live"], // If there are any WebSocket or XHR requests
+      imgSrc: ["'self'", "data:"], // Allow images from self and inline images (data URIs)
+      // Add more directives as needed
+    },
+  })
+);
+
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -37,7 +55,7 @@ mongoose
 
 // Serve the index.ejs template (assuming you have a frontend for this project)
 app.get('/', (req, res) => {
-  res.render('index'); // Renders the index.ejs template
+  res.render('index.ejs'); // Renders the index.ejs template
 });
 // API Routes
 
